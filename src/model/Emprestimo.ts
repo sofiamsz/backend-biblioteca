@@ -4,76 +4,76 @@ import type { EmprestimoDTO } from "../interface/EmprestimoDTO.js";
 const database = new DatabaseModel().pool;
 
 class Emprestimo {
-    private id_emprestimo: number = 0;
-    private id_aluno: number;
-    private id_livro: number;
-    private data_emprestimo: Date;
-    private data_devolucao: Date;
-    private status_emprestimo: string;
+    private idEmprestimo: number = 0;
+    private idAluno: number;
+    private idLivro: number;
+    private dataEmprestimo: Date;
+    private dataDevolucao: Date;
+    private statusEmprestimo: string;
 
     constructor(
-        _id_aluno: number,
-        _id_livro: number,
-        _data_emprestimo: Date,
-        _data_devolucao: Date,
-        _status_emprestimo: string
+        _idAluno: number,
+        _idLivro: number,
+        _dataEmprestimo: Date,
+        _dataDevolucao: Date,
+        _statusEmprestimo: string
     ) {
-        this.id_aluno = _id_aluno;
-        this.id_livro = _id_livro;
-        this.data_emprestimo = _data_emprestimo;
-        this.data_devolucao = _data_devolucao;
-        this.status_emprestimo = _status_emprestimo;
+        this.idAluno = _idAluno;
+        this.idLivro = _idLivro;
+        this.dataEmprestimo = _dataEmprestimo;
+        this.dataDevolucao = _dataDevolucao;
+        this.statusEmprestimo = _statusEmprestimo;
     }
 
     public getIdEmprestimo(): number {
-        return this.id_emprestimo;
+        return this.idEmprestimo;
     }
 
-    public setIdEmprestimo(_id_emprestimo: number): void {
-        this.id_emprestimo = _id_emprestimo;
+    public setIdEmprestimo(_idEmprestimo: number): void {
+        this.idEmprestimo = _idEmprestimo;
     }
 
     public getIdAluno(): number {
-        return this.id_aluno;
+        return this.idAluno;
     }
 
-    public setIdAluno(_id_aluno: number): void {
-        this.id_aluno = _id_aluno;
+    public setIdAluno(_idAluno: number): void {
+        this.idAluno = _idAluno;
     }
 
     public getIdLivro(): number {
-        return this.id_livro;
+        return this.idLivro;
     }
 
-    public setIdLivro(_id_livro: number): void {
-        this.id_livro = _id_livro;
+    public setIdLivro(_idLivro: number): void {
+        this.idLivro = _idLivro;
     }
 
     public getDataEmprestimo(): Date {
-        return this.data_emprestimo;
+        return this.dataEmprestimo;
     }
 
-    public setDataEmprestimo(_data_emprestimo: Date): void {
-        this.data_emprestimo = _data_emprestimo;
+    public setDataEmprestimo(_dataEmprestimo: Date): void {
+        this.dataEmprestimo = _dataEmprestimo;
     }
 
     public getDataDevolucao(): Date {
-        return this.data_devolucao;
+        return this.dataDevolucao;
     }
 
-    public setDataDevolucao(_data_devolucao: Date): void {
-        this.data_devolucao = _data_devolucao;
+    public setDataDevolucao(_dataDevolucao: Date): void {
+        this.dataDevolucao = _dataDevolucao;
     }
 
     public getStatusEmprestimo(): string {
-        return this.status_emprestimo;
+        return this.statusEmprestimo;
     }
 
-    public setStatusEmprestimo(_status_emprestimo: string): void {
-        this.status_emprestimo = _status_emprestimo;
+    public setStatusEmprestimo(_statusEmprestimo: string): void {
+        this.statusEmprestimo = _statusEmprestimo;
     }
 
-        static async listarEmprestimo(): Promise<Array<Emprestimo> | null> {
+    static async listarEmprestimo(): Promise<Array<Emprestimo> | null> {
         try {
             let listaDeEmprestimo: Array<Emprestimo> = [];
             const querySelectEmprestimo = `SELECT * FROM emprestimo;`;
@@ -87,11 +87,13 @@ class Emprestimo {
                     emprestimoBD.data_devolucao,
                     emprestimoBD.status_emprestimo
                 );
-
-                novoEmprestimo.setIdLivro(emprestimoBD.id_emprestimo);
+                novoEmprestimo.setIdEmprestimo(emprestimoBD.id_emprestimo);
+                novoEmprestimo.setIdLivro(emprestimoBD.id_livro);
+                 novoEmprestimo.setIdAluno(emprestimoBD.id_aluno);
 
                 listaDeEmprestimo.push(novoEmprestimo);
             });
+
 
             return listaDeEmprestimo;
         } catch (error) {

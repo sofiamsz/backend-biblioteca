@@ -17,6 +17,7 @@ class LivroController extends Livro {
     static async novo(req: Request, res: Response): Promise<Response> {
         try {
             const dadosRecebidosLivro = req.body;
+            console.log(dadosRecebidosLivro);
             const respostaModelo = await Livro.cadastrarLivro(dadosRecebidosLivro);
 
             if (respostaModelo) {
